@@ -39,3 +39,11 @@ if(true) {
     console.log(a)
 }
 console.log(a)
+
+// let a 存在暂时性死区
+if (true) {
+    function a() {}
+    let a = 1
+}
+
+ 
