@@ -15,7 +15,7 @@
 javascript 声明一共有 4 种形式
     function: 不包括函数表达式, 参见函数表达式章节
     var
-    let 
+    let
     const
 */
 
@@ -31,14 +31,14 @@ c. let/const 优先级次之, 暂时性死区导致在 let/const 之前不能使
 d. var 优先级最低, 不能覆盖其他声明(覆盖 function 无效, 覆盖 const/let 报错), 可以被自身覆盖
 */
 
-console.log(a)
+console.log('1', a)
 if(true) {
 // if(false) {
-    console.log(a)
+    console.log('2', a)
     function a () {}
-    console.log(a)
+    console.log('3', a)
 }
-console.log(a)
+console.log('4', a)
 
 // let a 存在暂时性死区
 if (true) {
@@ -46,4 +46,59 @@ if (true) {
     let a = 1
 }
 
- 
+// demo 1
+function fun() {
+    console.log('fun')
+}
+// 函数声明优先级最高, 可以被同名函数声明覆盖, 不能被变量声明覆盖
+console.log('print', fun) // 已经是fun111，提升与覆盖先于执行,不是‘var fun’
+
+function fun() {
+    console.log('fun111')
+}
+
+fun()
+
+console.log('print fun', fun)
+
+var fun = 'var fun'
+
+console.log('print fun1', fun)
+
+// let fun = 'var fun2' // 执行此段代码，先报这行的错，Uncaught SyntaxError: Identifier 'fun' has already been declared
+
+console.log('print fun2', fun)
+
+
+// console.log('2==', c, l) // 暂时性死区，TDZ。Script snippet %233:2 Uncaught ReferenceError: Cannot access 'c' before initialization
+
+const c = 'const var'
+let l = 'let var'
+
+// var c = 'new c' // has already been declared
+
+// var l = 'new l' // has already been declared
+
+// demo2
+console.log('first', f)
+// console.log('second', cc) // 报错，const/let没有提升,Script snippet %234:2 Uncaught ReferenceError: Cannot access 'cc' before initialization，同时证明const/let优先级低于函数，否则会先于上一行报错
+// console.log('third', v, cc) // 报错，const/let优先级高于var
+console.log('third', v) // undefined
+
+
+function f() {
+    console.log('函数')
+}
+
+var f = 'var 覆盖function无效'
+
+var v = 'var var'
+console.log('fourth', v)
+
+var v = 'var 覆盖自身'
+
+console.log('fifth', v)
+
+const cc = 'const const'
+
+// var cc = 'var cc' // 报错，has been declared
