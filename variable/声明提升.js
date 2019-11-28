@@ -25,10 +25,12 @@ javascript 声明一共有 4 种形式
     * 优先级: 不同声明方式声明的同名变量按照什么样的规则进行覆盖
 
 针对这两个问题有以下声明提升规则
-a. let/const 定义在块级作用域,  function/var 定义在函数作用域
-b. 函数声明优先级最高, 可以被同名函数声明覆盖, 不能被变量声明覆盖
-c. let/const 优先级次之, 暂时性死区导致在 let/const 之前不能使用变量, 也不能被自身和其他声明覆盖, 否则报错
-d. var 优先级最低, 不能覆盖其他声明(覆盖 function 无效, 覆盖 const/let 报错), 可以被自身覆盖
+a. function/var 定义在函数作用域, let/const 定义在块级作用域
+b. 函数声明优先级高于变量声明, 不能被变量声明覆盖, 可以被同名函数声明覆盖
+c. var 不能覆盖其他声明(覆盖 function 无效, 覆盖 const/let 报错), 可以被自身覆盖
+d. let/const 不存在声明提升, 不能覆盖其他声明, 也不能被自身和其他声明覆盖, 否则报错
+    * 不能覆盖其他声明: 暂时性死区导致在 let/const 之前不能使用变量, 即不能使用 function/var 先声明, 也就不能覆盖
+    * 不能被自身和其他声明覆盖: let/const 变量不能重复声明, 所以不能被覆盖
 */
 
 console.log(a)
@@ -45,5 +47,9 @@ if (true) {
     function a() {}
     let a = 1
 }
+
+useEffect(function () {
+    fetch(id)
+}, [])
 
  
