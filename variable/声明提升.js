@@ -48,7 +48,6 @@ if (true) {
     let a = 1
 }
 
-<<<<<<< HEAD
 // demo 1
 function fun() {
     console.log('fun')
